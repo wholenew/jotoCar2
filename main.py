@@ -12,8 +12,8 @@ app = Flask(__name__)
 
 webcamid = 0
 fps = 30
-frame_width = 320
-frame_height = 240
+frame_width = 320 #320 640
+frame_height = 240 #240 360
 frame_area = frame_width * frame_height
 frame_centerX = frame_width / 2
 frame_centerY = frame_height / 2

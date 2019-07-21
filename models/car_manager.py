@@ -13,10 +13,10 @@ logger = logging.getLogger(__name__)
 R_PWM = 26
 R_IN1 = 20
 R_IN2 = 21
-L_PWM = 17
+L_PWM = 23
 L_IN1 = 27
-L_IN2 = 22
-frequency = 200
+L_IN2 = 16
+frequency = 250
 maxPwm = 255
 
 class CarManager(metaclass=Singleton):
@@ -27,7 +27,8 @@ class CarManager(metaclass=Singleton):
         # self.servo = servo
         # self.bus = smbus.SMBus(1)
         # self.address = 0x04
-
+        self.pi.set_mode(R_PWM, pigpio.OUTPUT)
+        self.pi.set_mode(L_PWM, pigpio.OUTPUT)
         self.pi.set_mode(R_IN1, pigpio.OUTPUT)
         self.pi.set_mode(R_IN2, pigpio.OUTPUT)
         self.pi.set_mode(L_IN1, pigpio.OUTPUT)
@@ -62,8 +63,8 @@ class CarManager(metaclass=Singleton):
         l_pwm = 200
         code='l'
       elif command=='stop':
-        r_pwm = 0
-        l_pwm = 0
+        r_pwm = 255
+        l_pwm = 255
         code='s'
 
       if code=='f':
@@ -96,12 +97,14 @@ class CarManager(metaclass=Singleton):
           l_in1 = 1
           l_in2 = 1
           #print('s')
-      self.pi.set_PWM_dutycycle(R_PWM, r_pwm)
-      self.pi.set_PWM_dutycycle(L_PWM, l_pwm)
+
       self.pi.write(R_IN1, r_in1)
       self.pi.write(R_IN2, r_in2)
       self.pi.write(L_IN1, l_in1)
       self.pi.write(L_IN2, l_in2)
+      self.pi.set_PWM_dutycycle(R_PWM, r_pwm)
+      self.pi.set_PWM_dutycycle(L_PWM, l_pwm)
+ 
       #  self.pi.set_servo_pulsewidth(self.servo, pwm)
       # self.bus.write_byte(self.address, ord(code))
       # time.sleep(3)
