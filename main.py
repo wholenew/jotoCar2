@@ -41,7 +41,7 @@ def getFrames():
         src_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         blur = cv2.GaussianBlur(src_gray, (9,9), 0)
         circles = cv2.HoughCircles(blur, cv2.HOUGH_GRADIENT, dp = 1, minDist = 1, param1 = 20, param2 = 35, minRadius = 1, maxRadius = 30)
-
+        carManager = getCarManager()
         if circles is not None:
             # print(len(circles[0]))
             for i in circles[0]:
@@ -68,7 +68,7 @@ def getFrames():
         # ret, jpg = cv2.imencode("test.jpg", frame)
         # src_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         # faces = face_cascade.detectMultiScale(src_gray, 1.3, 5)
-        # carManager = getCarManager()
+
         # if len(faces) > 0:
         #     for x, y, w, h in faces:
                 # print(x,y,w,h)
