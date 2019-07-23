@@ -10,6 +10,8 @@ from models.base import Singleton
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 logger = logging.getLogger(__name__)
 
+
+STEERING=4
 R_PWM = 26
 R_IN1 = 20
 R_IN2 = 21
@@ -19,7 +21,9 @@ L_IN2 = 16
 frequency = 250
 maxPwm = 255
 
+
 class CarManager(metaclass=Singleton):
+  s_PWM = 850
   
   def __init__(self, servo=4):
         # self.response = None
@@ -44,23 +48,29 @@ class CarManager(metaclass=Singleton):
       code = 's'
       r_pwm = 255
       l_pwm = 255
+      
+
   
       if command=='forward':
         r_pwm = 255
         l_pwm = 255
+        self.s_PWM = 850
         code='f'
      
       elif command=='back':
         r_pwm = 255
-        l_pwm = 255        
+        l_pwm = 255
+        self.s_PWM = 850
         code='b'
       elif command=='right':
-        r_pwm = 200
+        r_pwm = 255
         l_pwm = 255
+        self.s_PWM = 950
         code='r'
       elif command=='left':
         r_pwm = 255
-        l_pwm = 200
+        l_pwm = 255
+        self.s_PWM = 750
         code='l'
       elif command=='stop':
         r_pwm = 255
@@ -96,6 +106,7 @@ class CarManager(metaclass=Singleton):
           r_in2 = 1
           l_in1 = 1
           l_in2 = 1
+          
           #print('s')
 
       self.pi.write(R_IN1, r_in1)
@@ -104,8 +115,8 @@ class CarManager(metaclass=Singleton):
       self.pi.write(L_IN2, l_in2)
       self.pi.set_PWM_dutycycle(R_PWM, r_pwm)
       self.pi.set_PWM_dutycycle(L_PWM, l_pwm)
- 
-      #  self.pi.set_servo_pulsewidth(self.servo, pwm)
+      #850center750right950left
+      self.pi.set_servo_pulsewidth(STEERING, self.s_PWM)
       # self.bus.write_byte(self.address, ord(code))
       # time.sleep(3)
 

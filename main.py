@@ -58,7 +58,7 @@ def getFrames():
                 elif i[0] < 50:
                     carManager.right()
                 else:
-                    getCarManager.stop()
+                    carManager.stop()
                 break
         else:
             carManager.stop()
@@ -106,5 +106,5 @@ def video_feed():
 # import webbrowser
 # webbrowser.get().open("192.168.0.101:5001")
 if __name__ == '__main__':
-    # app.run(host = '192.168.0.103', port = 5001, threaded = False) # only 1 client
-    app.run(host='192.168.0.101', port=5001, threaded=False)  # only
+    app.run(host = '192.168.0.103', port = 5001, threaded = False) # only 1 client
+    #app.run(host='192.168.0.101', port=5001, threaded=False)  # only
